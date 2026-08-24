@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src",
+    "config",
+    ".umi/**/*.ts",
+    ".umi/**/*.tsx",
+    ".umi-dev/**/*.ts",
+    ".umi-dev/**/*.tsx",
+    "src/.umi/**/*.ts",
+    "src/.umi/**/*.tsx",
+    "src/.umi/**/*.d.ts",
+    "src/.umi-dev/**/*.ts",
+    "src/.umi-dev/**/*.tsx",
+    "src/.umi-dev/**/*.d.ts",
+    "src/.umi-production/**/*.ts",
+    "src/.umi-production/**/*.tsx",
+    "src/.umi-production/**/*.d.ts",
+    "typings/**/*.d.ts"
+  ]
+}

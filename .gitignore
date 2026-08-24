@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist.zip
+
+# Umi generated
+src/.umi/
+src/.umi-production/
+src/.umi-test/
+.umi/
+.umi-production/
+
+# Env / local
+.env.local
+.env.*.local
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Coverage
+coverage/
