@@ -6,6 +6,7 @@ interface RouteLike {
   access?: string;
   path?: string;
   component?: string;
+  hideInMenu?: boolean;
   routes?: RouteLike[];
 }
 
@@ -51,6 +52,8 @@ describe('complete route tree', () => {
     expect(new Set(business.map((route) => route.path)).size).toBe(28);
     expect(routeLeaves).toEqual(expect.arrayContaining([
       expect.objectContaining({ path: '/login', component: '@/pages/Login' }),
+      expect.objectContaining({ path: '/about', component: '@/pages/About', hideInMenu: true }),
+      expect.objectContaining({ path: '/account/profile', component: '@/pages/Profile', hideInMenu: true }),
       expect.objectContaining({ path: '/403', component: '@/pages/Exception/403' }),
       expect.objectContaining({ path: '*', component: '@/pages/Exception/404' }),
     ]));

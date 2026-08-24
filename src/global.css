@@ -4,3 +4,11 @@ body,
   min-height: 100%;
   margin: 0;
 }
+
+html[data-theme='light'] body {
+  background: #f5f7fa;
+}
+
+html[data-theme='dark'] body {
+  background: #141414;
+}

@@ -5,6 +5,17 @@ export const useRecordsStyles = createStyles(({ css, token }) => ({
     min-width: 0;
     max-width: 100%;
     overflow-x: hidden;
+
+    .ant-pro-query-filter .ant-form-item-label {
+      flex: none;
+      white-space: nowrap;
+    }
+
+    .ant-pro-query-filter .ant-form-item-control,
+    .ant-pro-query-filter .ant-form-item-control-input,
+    .ant-pro-query-filter .ant-form-item-control-input-content {
+      min-width: 0;
+    }
   `,
   loadState: css`
     margin-bottom: ${token.marginSM}px;

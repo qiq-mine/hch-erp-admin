@@ -1,7 +1,13 @@
 import { Line } from '@ant-design/plots';
+import {
+  ArrowDownOutlined,
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  CheckOutlined,
+} from '@ant-design/icons';
 import { PageContainer, ProCard, StatisticCard } from '@ant-design/pro-components';
 import { useModel, useRequest } from '@umijs/max';
-import { Button, List, Result, Skeleton, Space, Steps, Typography } from 'antd';
+import { Button, List, Result, Skeleton, Space, Typography } from 'antd';
 import dayjs from 'dayjs';
 import type { AppInitialState } from '@/app';
 import { BusinessStatusTag } from '@/components/BusinessStatusTag';
@@ -25,7 +31,78 @@ const PROCESS_LABELS = [
   '经营分析',
 ] as const;
 
-const PROCESS_STEPS = PROCESS_LABELS.map((title) => ({ title }));
+const PROCESS_NODES = PROCESS_LABELS.map((title, index) => ({
+  number: index + 1,
+  status: index < 3 ? 'completed' : index === 3 ? 'active' : 'pending',
+  title,
+})) as readonly ProcessNode[];
+
+interface ProcessNode {
+  number: number;
+  status: 'completed' | 'active' | 'pending';
+  title: string;
+}
+
+function FlowNode({ node }: { node: ProcessNode }) {
+  const { styles, cx } = useDashboardStyles();
+  return (
+    <div
+      className={cx(
+        styles.processNode,
+        node.status === 'completed' && styles.processNodeCompleted,
+        node.status === 'active' && styles.processNodeActive,
+      )}
+    >
+      <span className={styles.processNodeIndex}>
+        {node.status === 'completed' ? <CheckOutlined /> : node.number}
+      </span>
+      <Typography.Text className={styles.processNodeTitle} strong>
+        {node.title}
+      </Typography.Text>
+    </div>
+  );
+}
+
+function ProcessFlow() {
+  const { styles } = useDashboardStyles();
+  const firstRow = PROCESS_NODES.slice(0, 4);
+  const secondRow = [...PROCESS_NODES.slice(4)].reverse();
+
+  return (
+    <div
+      aria-label="制造 ERP 端到端业务流程图"
+      className={styles.processFlow}
+      role="img"
+    >
+      <div className={styles.processCanvas}>
+        <section aria-label="端到端流程第一行" className={styles.processRow}>
+          {firstRow.map((node, index) => (
+            <div className={styles.processSegment} key={node.title}>
+              <FlowNode node={node} />
+              {index < firstRow.length - 1 ? (
+                <ArrowRightOutlined aria-hidden className={styles.processArrow} />
+              ) : null}
+            </div>
+          ))}
+        </section>
+        <div aria-hidden className={styles.processTurn}>
+          <span />
+          <ArrowDownOutlined />
+        </div>
+        <section aria-label="端到端流程第二行" className={styles.processRow}>
+          {secondRow.map((node, index) => (
+            <div className={styles.processSegment} key={node.title}>
+              <FlowNode node={node} />
+              {index < secondRow.length - 1 ? (
+                <ArrowLeftOutlined aria-hidden className={styles.processArrow} />
+              ) : null}
+            </div>
+          ))}
+        </section>
+      </div>
+    </div>
+  );
+}
 
 export interface DashboardProps {
   repository?: EnterpriseRepository;
@@ -153,13 +230,7 @@ export function Dashboard({
           <Line data={trend} xField="date" yField="value" colorField="type" />
         </ProCard>
         <ProCard title="端到端进度">
-          <div
-            aria-label="制造 ERP 端到端业务流程图"
-            className={styles.processFlow}
-            role="img"
-          >
-            <Steps current={3} items={PROCESS_STEPS} responsive={false} titlePlacement="vertical" />
-          </div>
+          <ProcessFlow />
         </ProCard>
       </ProCard>
 

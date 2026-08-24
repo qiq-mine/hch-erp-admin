@@ -5,6 +5,7 @@ import type { RoleKey } from '../src/domain/types';
 export interface ErpRoute {
   access?: string;
   component?: string;
+  hideInMenu?: boolean;
   layout?: boolean;
   name?: string;
   path?: string;
@@ -31,6 +32,8 @@ const workbench = (path: string, name: string, access: string): ErpRoute => ({
 const routes: ErpRoute[] = [
   { path: '/login', layout: false, component: '@/pages/Login' },
   { path: '/', redirect: '/dashboard' },
+  { path: '/about', name: '系统介绍', hideInMenu: true, component: '@/pages/About' },
+  { path: '/account/profile', name: '个人中心', hideInMenu: true, component: '@/pages/Profile' },
   { path: '/dashboard', name: '经营驾驶舱', access: 'dashboard', routes: [
     { path: '/dashboard', name: '经营总览', access: 'dashboard', component: '@/pages/Dashboard' },
     record('/dashboard/todos', '待办中心', 'dashboard'), record('/dashboard/alerts', '异常预警', 'dashboard'),

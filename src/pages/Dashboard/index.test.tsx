@@ -338,6 +338,7 @@ describe('application role state and menu', () => {
     ];
 
     expect(layout({}).menuDataRender(menu).map((item) => item.name)).toEqual(['登录', '帮助']);
+    expect(layout({}).menuHeaderRender).toBe(false);
     expect(
       layout({
         initialState: {
@@ -418,6 +419,8 @@ describe('Dashboard', () => {
     expect(screen.getByText('校验失败')).toBeInTheDocument();
     expect(screen.getAllByText('提交成功')).not.toHaveLength(0);
     const flow = screen.getByLabelText('制造 ERP 端到端业务流程图');
+    expect(screen.getByLabelText('端到端流程第一行')).toBeInTheDocument();
+    expect(screen.getByLabelText('端到端流程第二行')).toBeInTheDocument();
     for (const label of [
       '订购意向',
       '信用审核',

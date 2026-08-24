@@ -145,6 +145,8 @@ describe('Records', () => {
     });
     expect(screen.getByRole('combobox', { name: '业务状态' })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: '组织编码' })).toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: '单据编号' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: '业务摘要' })).not.toBeInTheDocument();
     expect(listRecords).toHaveBeenLastCalledWith('intent-orders', expect.objectContaining({
       keyword: '华东家居',
       page: 1,

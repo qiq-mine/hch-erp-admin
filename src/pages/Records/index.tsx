@@ -687,41 +687,41 @@ function RecordsIdentity({
     ] : []),
     {
       dataIndex: 'number',
-      hideInSearch: true,
+      search: false,
       title: '单据编号',
       width: 170,
     },
     {
       dataIndex: 'title',
       ellipsis: true,
-      hideInSearch: true,
+      search: false,
       title: '业务摘要',
     },
     {
       dataIndex: 'status',
-      hideInSearch: true,
       key: 'status-display',
+      search: false,
       render: (_, record) => <BusinessStatusTag status={record.status} />,
       title: '状态',
       width: 100,
     },
     {
       dataIndex: 'organizationId',
-      hideInSearch: true,
       key: 'organization-display',
+      search: false,
       title: '组织',
       width: 110,
     },
     {
       dataIndex: 'updatedAt',
-      hideInSearch: true,
+      search: false,
       title: '更新时间',
       valueType: 'dateTime',
       width: 170,
     },
     {
-      hideInSearch: true,
       key: 'actions',
+      search: false,
       render: (_, record) => (
         <Space onClick={(event) => event.stopPropagation()} size={4} wrap>
           {availableActions(page, record, role, effectivePolicy).map((action) => (
@@ -813,9 +813,10 @@ function RecordsIdentity({
           search={{
             defaultCollapsed: false,
             filterType: 'query',
+            labelWidth: 'auto',
             resetText: '重置',
             searchText: '查询',
-            span: { xs: 24, sm: 12, md: 8, lg: 6, xl: 6, xxl: 6 },
+            span: { xs: 24, sm: 24, md: 12, lg: 8, xl: 6, xxl: 6 },
           }}
           toolBarRender={() => [
             ...(canCreateIntent
